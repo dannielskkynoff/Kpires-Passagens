@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPires Passagens - Conceição do Araguaia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .routes-section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #1b5e20;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        .route-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #43a047;
+        }
+
+        .route-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .route-title {
+            font-size: 1.8rem;
+            color: #1b5e20;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .route-title::before {
+            content: "🚌";
+            font-size: 1.5rem;
+        }
+
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .city-item {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #66bb6a;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .city-item:hover {
+            background: linear-gradient(135deg, #c8e6c9 0%, #e8f5e9 100%);
+            border-left-color: #2e7d32;
+            transform: translateX(5px);
+        }
+
+        .state-tag {
+            display: inline-block;
+            background: #43a047;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .connections-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 2px solid #66bb6a;
+        }
+
+        .connection-title {
+            font-size: 1.6rem;
+            color: #1b5e20;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            font-style: italic;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .accordion-header {
+            background: linear-gradient(135deg, #43a047 0%, #66bb6a 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+            transform: translateX(5px);
+        }
+
+        .accordion-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .accordion-content.open {
+            max-height: 3000px;
+        }
+
+        .rules-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+            border: 3px solid #66bb6a;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .rule-card {
+            background: linear-gradient(135deg, #f1f8f4 0%, #e8f5e9 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 5px solid #43a047;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .rule-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .rule-title {
+            font-size: 1.4rem;
+            color: #1b5e20;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .rule-text {
+            color: #2d3748;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .warning-badge {
+            background: #f44336;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .info-badge {
+            background: #2196f3;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .cities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .accordion-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .accordion-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .route-card {
+                padding: 1.5rem;
+            }
+
+            .rules-section {
+                padding: 1.5rem;
+            }
+
+            .rule-card {
+                padding: 1.5rem;
+            }
+
+            .rule-icon {
+                font-size: 2.5rem;
+            }
+
+            .rule-title {
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .accordion-header h3 {
+                font-size: 1rem;
+            }
+
+            .city-item {
+                font-size: 0.9rem;
+            }
+
+            .state-tag {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>🚌 KPires Passagens</h1>
+                <p class="subtitle">Sua agência de confiança em Conceição do Araguaia</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h2>Conectando você aos principais destinos</h2>
+            <p>Viaje com conforto e segurança para diversos estados do Brasil</p>
+        </div>
+
+        <section class="routes-section">
+            <h2 class="section-title">🚌 Nossos Destinos</h2>
+
+            <div class="accordion-header" onclick="toggleAccordion('route1')">
+                <h3>Linha Parauapebas ↔ Goiânia</h3>
+                <span class="accordion-icon" id="icon-route1">▼</span>
+            </div>
+            <div class="accordion-content" id="route1">
+                <h3 class="route-title">Linha Parauapebas ↔ Goiânia</h3>
+                <div class="cities-grid">
+                    <div class="city-item">Parauapebas <span class="state-tag">PA</span></div>
+                    <div class="city-item">Canaã do Carajás <span class="state-tag">PA</span></div>
+                    <div class="city-item">Sapucaia <span class="state-tag">PA</span></div>
+                    <div class="city-item">Xinguara <span class="state-tag">PA</span></div>
+                    <div class="city-item">Rio Maria <span class="state-tag">PA</span></div>
+                    <div class="city-item">Redenção <span class="state-tag">PA</span></div>
+                    <div class="city-item">Conceição do Araguaia <span class="state-tag">PA</span></div>
+                    <div class="city-item">Pequizeiro <span class="state-tag">TO</span></div>
+                    <div class="city-item">Colmeia <span class="state-tag">TO</span></div>
+                    <div class="city-item">Guaraí <span class="state-tag">TO</span></div>
+                    <div class="city-item">Miranorte <span class="state-tag">TO</span></div>
+                    <div class="city-item">Paraíso do Tocantins <span class="state-tag">TO</span></div>
+                    <div class="city-item">Gurupi <span class="state-tag">TO</span></div>
+                    <div class="city-item">Alvorada <span class="state-tag">TO</span></div>
+                    <div class="city-item">Porangatu <span class="state-tag">GO</span></div>
+                    <div class="city-item">Uruaçu <span class="state-tag">GO</span></div>
+                    <div class="city-item">Rialma <span class="state-tag">GO</span></div>
+                    <div class="city-item">Jaraguá Churras. Cometa <span class="state-tag">GO</span></div>
+                    <div class="city-item">Anápolis <span class="state-tag">GO</span></div>
+                    <div class="city-item">Goiânia <span class="state-tag">GO</span></div>
+                </div>
+                <div class="note">
+                    <strong>Observação:</strong> Couto Magalhães TO - Deve-se tirar uma cidade a frente
+                </div>
+                </div>
+            </div>
+
+            <div class="accordion-header" onclick="toggleAccordion('route2')">
+                <h3>Linha Conceição do Araguaia ↔ Belém</h3>
+                <span class="accordion-icon" id="icon-route2">▼</span>
+            </div>
+            <div class="accordion-content" id="route2">
+                <h3 class="route-title">Linha Conceição do Araguaia ↔ Belém</h3>
+                <div class="cities-grid">
+                    <div class="city-item">Conceição do Araguaia <span class="state-tag">PA</span></div>
+                    <div class="city-item">Redenção <span class="state-tag">PA</span></div>
+                    <div class="city-item">Rio Maria <span class="state-tag">PA</span></div>
+                    <div class="city-item">Xinguara <span class="state-tag">PA</span></div>
+                    <div class="city-item">Sapucaia <span class="state-tag">PA</span></div>
+                    <div class="city-item">Eldorado dos Carajás <span class="state-tag">PA</span></div>
+                    <div class="city-item">Marabá <span class="state-tag">PA</span></div>
+                    <div class="city-item">Bom Jesus do Tocantins <span class="state-tag">PA</span></div>
+                    <div class="city-item">Abel Figueiredo <span class="state-tag">PA</span></div>
+                    <div class="city-item">Rondon do Pará <span class="state-tag">PA</span></div>
+                    <div class="city-item">Dom Eliseu <span class="state-tag">PA</span></div>
+                    <div class="city-item">Ulianópolis <span class="state-tag">PA</span></div>
+                    <div class="city-item">Paragominas <span class="state-tag">PA</span></div>
+                    <div class="city-item">Ipixuna do Pará <span class="state-tag">PA</span></div>
+                    <div class="city-item">Aurora do Pará <span class="state-tag">PA</span></div>
+                    <div class="city-item">Mãe do Rio <span class="state-tag">PA</span></div>
+                    <div class="city-item">São Miguel do Guamá <span class="state-tag">PA</span></div>
+                    <div class="city-item">Santa Maria do Pará <span class="state-tag">PA</span></div>
+                    <div class="city-item">Castanhal <span class="state-tag">PA</span></div>
+                    <div class="city-item">Ananindeua <span class="state-tag">PA</span></div>
+                    <div class="city-item">Belém <span class="state-tag">PA</span></div>
+                </div>
+                <div class="note">
+                    <strong>Conexão Disponível:</strong> Altamira PA (Com Conexão em Marabá)
+                </div>
+                </div>
+            </div>
+
+            <div class="accordion-header" onclick="toggleAccordion('route3')">
+                <h3>Conexões de Goiânia</h3>
+                <span class="accordion-icon" id="icon-route3">▼</span>
+            </div>
+            <div class="accordion-content" id="route3">
+            <div class="connections-section">
+                <h3 class="connection-title">Conexões de Goiânia para:</h3>
+                <div class="cities-grid">
+                    <div class="city-item">Campo Grande <span class="state-tag">MS</span></div>
+                    <div class="city-item">Dourados <span class="state-tag">MS</span></div>
+                    <div class="city-item">Ponta Porã <span class="state-tag">MS</span></div>
+                    <div class="city-item">São José do Rio Preto <span class="state-tag">SP</span></div>
+                    <div class="city-item">Penápolis <span class="state-tag">SP</span></div>
+                    <div class="city-item">Birigui <span class="state-tag">SP</span></div>
+                    <div class="city-item">Araçatuba <span class="state-tag">SP</span></div>
+                    <div class="city-item">Andradina <span class="state-tag">SP</span></div>
+                    <div class="city-item">Três Lagoas <span class="state-tag">MS</span></div>
+                    <div class="city-item">Cassilândia <span class="state-tag">MS</span></div>
+                    <div class="city-item">Chapadão do Sul <span class="state-tag">MS</span></div>
+                    <div class="city-item">Paraíso das Águas <span class="state-tag">MS</span></div>
+                    <div class="city-item">Camapuã <span class="state-tag">MS</span></div>
+                    <div class="city-item">Bandeirantes <span class="state-tag">MS</span></div>
+                    <div class="city-item">Rio Brilhante <span class="state-tag">MS</span></div>
+                    <div class="city-item">Belo Horizonte <span class="state-tag">MG</span></div>
+                    <div class="city-item">Patos de Minas <span class="state-tag">MG</span></div>
+                    <div class="city-item">Patrocínio <span class="state-tag">MG</span></div>
+                    <div class="city-item">Uberlândia <span class="state-tag">MG</span></div>
+                    <div class="city-item">Luz <span class="state-tag">MG</span></div>
+                    <div class="city-item">Nova Serrana <span class="state-tag">MG</span></div>
+                    <div class="city-item">Pará de Minas <span class="state-tag">MG</span></div>
+                    <div class="city-item">Frutal <span class="state-tag">MG</span></div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <section class="rules-section">
+            <h2 class="section-title">📋 Regras e Informações Importantes</h2>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <span class="rule-icon">📦</span>
+                    <h3 class="rule-title">Encomendas/Bagagens</h3>
+                    <p class="rule-text">Não transportamos caixa de isopor</p>
+                    <span class="warning-badge">⚠️ PROIBIDO</span>
+                </div>
+
+                <div class="rule-card">
+                    <span class="rule-icon">👶</span>
+                    <h3 class="rule-title">Passageiros Menores</h3>
+                    <p class="rule-text">Menores de 16 anos não viajam desacompanhados</p>
+                    <span class="warning-badge">⚠️ OBRIGATÓRIO</span>
+                </div>
+
+                <div class="rule-card">
+                    <span class="rule-icon">🐕</span>
+                    <h3 class="rule-title">Pets</h3>
+                    <p class="rule-text">Cachorros devem viajar na casinha e deve viajar em uma poltrona separada</p>
+                    <span class="info-badge">ℹ️ ATENÇÃO</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p><strong>KPires Passagens</strong></p>
+            <p>Conceição do Araguaia - PA</p>
+            <div class="contact-info">
+                <p>📍 Sua agência de confiança para viagens de ônibus</p>
+                <p>🎫 Vendas de passagens para todo o Brasil</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            content.classList.toggle('open');
+            icon.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
